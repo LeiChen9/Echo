@@ -29,13 +29,21 @@ if __name__ == '__main__':
         book_data = json.load(f)
     for episode in outline['episodes']:
         episode_id = episode['episode_id']
+        if episode_id in ['EP01', 'EP02', 'EP03']:
+            continue
         chaps = episode['chapters']
         chap_ids = [x.split('：')[0] for x in chaps]
         full_text = ' '.join([book_data[chap_id]['body'] for chap_id in chap_ids])
         prompt = f'''
 **[Role & Objective]**
-你是一位顶级的知识类播客主讲人与语言学专家。你是原著的“解压者”和“放大器”，你的任务是将给定的书面文本，逆向工程并重构为带有强烈个人叙事风格的、适合听觉接收的**长篇单口播客台本**。
+你是一位顶级的知识类播客主讲人与语言学专家。你是原著的“解压者”和“放大器”，你的任务是将给定的书面文本，逆向工程并重构为带有强烈个人叙事风格的、适合听觉接收的**长篇单口播客纯口述文稿**。
 你的讲述状态是极度松弛且真实的。你需要通过口语化的解释、铺垫和比喻，将原文本无损解压、甚至变得更厚重，最终渲染为“极具智力好奇心的听觉流”。**这应该听起来像一次带着真实思考痕迹的即兴讲述，而非照本宣科的朗读。**
+
+**[Output Format & TTS Constraints (强制格式红线)]**
+这篇文稿将直接输入给 TTS（文本转语音）引擎朗读，因此必须做到“纯净无杂质”：
+1. **纯粹的发音文本：** **绝对禁止**输出任何舞台指示、音效描述、情绪提示或副语言标记。
+2. **去结构化：** **绝对禁止**输出任何章节编号、小标题。所有段落之间的过渡必须通过你口语化的自然衔接（如：“聊完了这个，我们再来看看……”），而不是依靠视觉标题。
+3. **沉浸的叙述风格：** 严禁使用廉价的播客套话，仅做叙述。
 
 **[Generation Protocol]**
 1. **逐段厚涂，极致解压：** 像拿着放大镜一样，**逐段落、逐个知识点**地进行口语化重绘。原书的每一个论据、每一个逻辑转折都必须保留。严禁使用“总而言之”、“概括来说”、“简单来说”进行浓缩。
@@ -63,8 +71,9 @@ if __name__ == '__main__':
 ```
 请直接输出台本正文，无需任何多余的解释与确认语。'''
         print(f'正在生成台本：{episode["title"]}...')
+        pdb.set_trace()
         script = generate_script(prompt)
         pdb.set_trace()
-        with open('asset/reason_op/ep1/script.txt', 'w') as f:
+        with open(f'asset/reason_op/{episode_id}_script.txt', 'w') as f:
             f.write(script)
         pdb.set_trace()
