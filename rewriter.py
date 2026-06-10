@@ -1,8 +1,9 @@
 import os
-import re
-import json
 from openai import OpenAI
 from dotenv import load_dotenv
+
+from text_process.utils import extract_chapters, split_chunks
+from utils import load_json, write_text, load_text
 
 load_dotenv()
 
@@ -15,36 +16,7 @@ client = OpenAI(
     base_url="https://api.deepseek.com")
 
 
-def remove_citations(text):
-    text = re.sub(r'\s*\[\s*[\d,\s]+\s*\]\s*', ' ', text)
-    return re.sub(r'\s+', ' ', text).strip()
-
-
-def remove_references(paragraphs):
-    return [text for text in paragraphs if not text.startswith('[ ')]
-
-
-def extract_chapters(book_data):
-    chapters = {}
-    for chapter_key, chapter in book_data["book_tree"].items():
-        if chapter_key == "版权信息":
-            continue
-
-        chapter_id, title = chapter_key.split(maxsplit=1)
-        body = "".join(remove_references(chapter["paragraphs"]))
-        chapters[chapter_id] = {
-            "title": title,
-            "body": remove_citations(body),
-        }
-    return chapters
-
-
-def load_json(path):
-    with open(path, encoding="utf-8") as f:
-        return json.load(f)
-
-
-def generate_script(prompt):
+def llm_call(prompt):
     """调用 LLM 生成播客台本"""
     response = client.chat.completions.create(
         model="deepseek-v4-pro",
@@ -56,18 +28,11 @@ def generate_script(prompt):
     )
     return response.choices[0].message.content
 
-if __name__ == '__main__':
-    outline = load_json(OUTLINE_PATH)
-    book_data = extract_chapters(load_json(BOOK_PATH))
-
-    for episode in outline['episodes']:
-        episode_id = episode['episode_id']
-        if episode_id in ['EP01', 'EP02', 'EP03']:
-            continue
-        chaps = episode['chapters']
-        chap_ids = [x.split('：')[0] for x in chaps]
-        full_text = ' '.join([book_data[chap_id]['body'] for chap_id in chap_ids])
-        prompt = f'''
+def script_rewrite(episode):
+    chaps = episode['chapters']
+    chap_ids = [x.split('：')[0] for x in chaps]
+    full_text = ' '.join([book_data[chap_id]['body'] for chap_id in chap_ids])
+    prompt = f'''
 **[Role & Objective]**
 你是一位顶级的知识类播客主讲人与语言学专家。你是原著的“解压者”和“放大器”，你的任务是将给定的书面文本，逆向工程并重构为带有强烈个人叙事风格的、适合听觉接收的**长篇单口播客纯口述文稿**。
 你的讲述状态是极度松弛且真实的。你需要通过口语化的解释、铺垫和比喻，将原文本无损解压、甚至变得更厚重，最终渲染为“极具智力好奇心的听觉流”。**这应该听起来像一次带着真实思考痕迹的即兴讲述，而非照本宣科的朗读。**
@@ -103,7 +68,35 @@ if __name__ == '__main__':
 {full_text}
 ```
 请直接输出台本正文，无需任何多余的解释与确认语。'''
-        print(f'正在生成台本：{episode["title"]}...')
-        script = generate_script(prompt)
-        with open(f'{OUTPUT_DIR}/{episode_id}_script.txt', 'w', encoding="utf-8") as f:
-            f.write(script)
+    print(f'正在生成台本：{episode["title"]}...')
+    script = llm_call(prompt)
+    print(f"Generated {script} words from original {full_text} words text")
+    return script
+
+def audit_script(script, chunk_chars=4500):
+    # 分段读取台本
+    chunks = split_chunks(script, max_chars=chunk_chars)
+    reviewed = []
+
+    for idx, chunk in enumerate(chunks):
+        print(f"audit: chunk {idx + 1}/{len(chunks)}, chars={len(chunk)}")
+        prompt = f'''
+**[Role & Objective]**
+
+        '''
+
+if __name__ == '__main__':
+    outline = load_json(OUTLINE_PATH)
+    book_data = extract_chapters(load_json(BOOK_PATH))
+
+    for episode in outline['episodes']:
+        episode_id = episode['episode_id']
+        episode_draft_path = f'{OUTPUT_DIR}/{episode_id}_script_draft.txt'
+        if episode_draft_path in os.listdir(OUTPUT_DIR):
+            script_draft = load_text(episode_draft_path)
+        else:
+            script_draft = script_rewrite(episode)
+            write_text(script_draft)
+        
+
+        write_text(f'{OUTPUT_DIR}/{episode_id}_script.txt', script)

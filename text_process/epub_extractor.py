@@ -2,15 +2,20 @@ from __future__ import annotations
 
 import json
 import os
-import warnings
 import zipfile
 from dataclasses import dataclass, field
 from typing import Optional
-from urllib.parse import unquote, urldefrag
 
-from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
-
-warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
+try:
+    from text_process.utils import (
+        make_soup as _soup,
+        normalize_text as _norm,
+        resolve_href as _resolve,
+    )
+except ModuleNotFoundError:
+    from utils import make_soup as _soup
+    from utils import normalize_text as _norm
+    from utils import resolve_href as _resolve
 
 
 TEXT_TAGS = {"p", "li"}
@@ -48,21 +53,6 @@ class PackageInfo:
 def _read_text(zf: zipfile.ZipFile, path: str) -> str:
     with zf.open(path) as fp:
         return fp.read().decode("utf-8", errors="ignore")
-
-
-def _norm(text: str) -> str:
-    return " ".join(text.split())
-
-
-def _soup(markup: str) -> BeautifulSoup:
-    soup = BeautifulSoup(markup, "xml")
-    return soup if soup.find() else BeautifulSoup(markup, "html.parser")
-
-
-def _resolve(base_dir: str, href: str) -> tuple[str, Optional[str]]:
-    file_part, fragment = urldefrag(href or "")
-    path = os.path.normpath(os.path.join(base_dir, unquote(file_part))) if file_part else ""
-    return path, fragment or None
 
 
 def _opf_path(zf: zipfile.ZipFile) -> str:
@@ -238,7 +228,7 @@ def _walk_nodes(root: TocNode):
         yield from _walk_nodes(child)
 
 
-def _find_anchor(soup: BeautifulSoup, node: TocNode):
+def _find_anchor(soup, node: TocNode):
     if node.fragment:
         target = soup.find(id=node.fragment) or soup.find(attrs={"name": node.fragment})
         if target:
