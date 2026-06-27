@@ -78,7 +78,7 @@ def script_rewrite(episode, max_retries=3):
 
 ---
 请基于上述所有约束，直接输出纯口述台本，无需任何多余的确认语或自我解释。
-"""
+'''
         print(f'正在生成台本：{episode["title"]} (尝试 {attempt}/{max_retries})...')
         script = llm_call(prompt)
         script_len = len(script)
