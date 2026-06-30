@@ -16,10 +16,11 @@ def write_json(path: str | Path, data: Any, *, indent: int = 2) -> None:
         json.dump(data, f, ensure_ascii=False, indent=indent)
 
 def json_eval(response: str) -> dict:
-    # 去除 ```json ... ``` 包裹（如果有）
     text = re.sub(r'^```(?:json)?\s*|\s*```$', '', response.strip())
-    
-    return json.loads(text)
+    start, end = text.find('{'), text.rfind('}')
+    if start != -1 and end > start:
+        text = text[start:end + 1]
+    return json.loads(text, strict=False)
 
 def read_text(path: str | Path) -> str:
     return Path(path).read_text(encoding="utf-8")

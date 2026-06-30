@@ -36,9 +36,8 @@ def _format_list(items: list) -> str:
 def script_rewrite(episode, chapters, max_retries=3):
     """生成单集播客台本，一次性将全量原文传入 LLM"""
     full_text = get_episode_text(chapters, episode["chapter_nums"])
-    pdb.set_trace()
     original_len = len(full_text)
-    min_required_len = original_len // 3
+    min_required_len = original_len  * 2 // 3
 
     for attempt in range(1, max_retries + 1):
         prompt = f'''
@@ -201,7 +200,6 @@ if __name__ == '__main__':
             script_draft = script_rewrite(episode, chapters)
             write_text(episode_draft_path, script_draft)
         print(f"台本初稿已生成，长度 {len(script_draft)} 字")
-        import pdb; pdb.set_trace()
         print(f"正在审校台本：{episode['title']}...")
         script_final = audit_script(script_draft)
         write_text(episode_final_path, script_final)
