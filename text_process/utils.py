@@ -88,11 +88,53 @@ def extract_chapters(book_data: dict) -> dict[int, dict]:
     return chapters
 
 
-def get_episode_text(chapters: dict[int, dict], chapter_nums: list[int]) -> str:
-    missing = [n for n in chapter_nums if n not in chapters]
+def _collect_sections(
+    nodes: dict,
+    sections: dict[str, dict],
+    order: list[int],
+) -> None:
+    for key, node in nodes.items():
+        norm = normalize_chapter_title(key)
+        if norm in sections:
+            raise ValueError(f"重复章节标题：{key}")
+
+        paragraphs = extract_text(node)
+        body = remove_citations("".join(remove_references(paragraphs)))
+        sections[norm] = {
+            "title": key,
+            "order": order[0],
+            "body": body,
+        }
+        order[0] += 1
+
+        if node.get("children"):
+            _collect_sections(node["children"], sections, order)
+
+
+def extract_sections(book_data: dict) -> dict[str, dict]:
+    """从 book_tree 递归提取所有节点，按规范化标题索引。"""
+    sections: dict[str, dict] = {}
+    _collect_sections(book_data["book_tree"], sections, [0])
+    return sections
+
+
+def normalize_text(text: str) -> str:
+    text = text.replace("\u200b", "")
+    return " ".join(text.split())
+
+
+def get_episode_text(sections: dict[str, dict], titles: list[str]) -> str:
+    missing: list[str] = []
+    bodies: list[str] = []
+    for title in titles:
+        norm = normalize_chapter_title(title)
+        if norm not in sections:
+            missing.append(title)
+        else:
+            bodies.append(sections[norm]["body"])
     if missing:
         raise KeyError(f"章节不存在: {missing}")
-    return "\n\n".join(chapters[n]["body"] for n in sorted(chapter_nums))
+    return "\n\n".join(bodies)
 
 
 def split_chunks(text: str, max_chars: int = 4500) -> list[str]:

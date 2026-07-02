@@ -3,14 +3,14 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from openai import OpenAI
 from dotenv import load_dotenv
 import pdb
-from text_process.utils import extract_chapters, get_episode_text, split_chunks
+from text_process.utils import extract_sections, get_episode_text, split_chunks
 from utils import load_json, write_text, load_text, json_eval
 
 load_dotenv()
 
-OUTLINE_PATH = "asset/national_org/outline.json"
-BOOK_PATH = "asset/national_org/中国国家治理的制度逻辑_一个组织学研究.json"
-OUTPUT_DIR = "asset/national_org/episodes"
+OUTLINE_PATH = "asset/neg_explain/outline.json"
+BOOK_PATH = "asset/neg_explain/反对阐释.json"
+OUTPUT_DIR = "asset/neg_explain/episodes"
 
 client = OpenAI(
     api_key=os.environ.get('DEEPSEEK_API_KEY'),
@@ -33,9 +33,9 @@ def _format_list(items: list) -> str:
     return "、".join(items) if items else "无"
 
 
-def script_rewrite(episode, chapters, max_retries=3):
+def script_rewrite(episode, sections, max_retries=3):
     """生成单集播客台本，一次性将全量原文传入 LLM"""
-    full_text = get_episode_text(chapters, episode["chapter_nums"])
+    full_text = get_episode_text(sections, episode["chapter_titles"])
     original_len = len(full_text)
     min_required_len = original_len  * 2 // 3
 
@@ -185,7 +185,7 @@ def audit_script(script, chunk_chars=4500):
 
 if __name__ == '__main__':
     outline = load_json(OUTLINE_PATH)
-    chapters = extract_chapters(load_json(BOOK_PATH))
+    sections = extract_sections(load_json(BOOK_PATH))
 
     for episode in outline['episodes']:
         episode_id = episode['episode_id']
@@ -197,7 +197,8 @@ if __name__ == '__main__':
         if os.path.exists(episode_draft_path):
             script_draft = load_text(episode_draft_path)
         else:
-            script_draft = script_rewrite(episode, chapters)
+            pdb.set_trace()
+            script_draft = script_rewrite(episode, sections)
             write_text(episode_draft_path, script_draft)
         print(f"台本初稿已生成，长度 {len(script_draft)} 字")
         print(f"正在审校台本：{episode['title']}...")

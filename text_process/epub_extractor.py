@@ -2,20 +2,21 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 import zipfile
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Optional
 
-try:
-    from text_process.utils import (
-        make_soup as _soup,
-        normalize_text as _norm,
-        resolve_href as _resolve,
-    )
-except ModuleNotFoundError:
-    from utils import make_soup as _soup
-    from utils import normalize_text as _norm
-    from utils import resolve_href as _resolve
+_ROOT = Path(__file__).resolve().parent.parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+
+from text_process.utils import (
+    make_soup as _soup,
+    normalize_text as _norm,
+    resolve_href as _resolve,
+)
 
 
 TEXT_TAGS = {"p", "li"}
@@ -317,13 +318,16 @@ if __name__ == "__main__":
     from pathlib import Path
 
     ROOT = Path(__file__).resolve().parent.parent
-    asset_name = "national_org"
-    book_name = "中国国家治理的制度逻辑_一个组织学研究"
+    asset_name = "neg_explain"
+    book_name = "反对阐释"
 
     epub_path = ROOT / "asset" / asset_name / f"{book_name}.epub"
     output_path = ROOT / "asset" / asset_name / f"{book_name}.json"
 
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(parse_epub(str(epub_path)), f, ensure_ascii=False, indent=2)
+    result = parse_epub(str(epub_path))
+    tmp_path = output_path.with_suffix(".json.tmp")
+    with open(tmp_path, "w", encoding="utf-8") as f:
+        json.dump(result, f, ensure_ascii=False, indent=2)
+    tmp_path.replace(output_path)
 
     print(f"输出已保存到 {output_path}")
