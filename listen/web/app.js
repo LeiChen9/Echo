@@ -64,8 +64,12 @@ function resolveAudioUrl(config, episode) {
     return episode.audio_url;
   }
   if (episode.audio_path) {
-    const base = config.r2_public_base.replace(/\/$/, "");
-    return `${base}/${episode.audio_path}`;
+    const base = config.r2_public_base.replace(/\/$/, "") + "/";
+    const encodedPath = episode.audio_path
+      .split("/")
+      .map((segment) => encodeURIComponent(segment))
+      .join("/");
+    return new URL(encodedPath, base).toString();
   }
   throw new Error(`集 ${episode.episode_id} 缺少 audio_url 或 audio_path`);
 }
