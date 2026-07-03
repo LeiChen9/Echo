@@ -138,6 +138,7 @@ function playEpisode(episodeId) {
   renderNowPlaying(episode);
 
   const audioUrl = resolveAudioUrl(state.config, episode);
+  console.log("audioUrl:", audioUrl);
   if (els.audio.src !== audioUrl) {
     els.audio.src = audioUrl;
     els.audio.load();
