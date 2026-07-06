@@ -475,7 +475,7 @@ function loadEpisode(episode, autoplay) {
     }
   }
 
-  document.title = `${title} — Susur`;
+  document.title = `${title} — Drift`;
 
   const mediaUrl = resolveMediaUrl(episode);
   if (!els.audio) return;

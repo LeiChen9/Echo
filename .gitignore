@@ -218,5 +218,5 @@ __marimo__/
 .streamlit/secrets.toml
 *.wav
 *.mp3 
-*.json
 asset/
+node_modules/
