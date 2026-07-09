@@ -250,7 +250,7 @@ function renderHomePage() {
         <div class="card-body">
           <h3>${item.book_title || item.series_id}</h3>
           <p class="card-desc">${item.description || ""}</p>
-          <span class="card-link">查看集数 →</span>
+          <span class="card-link">查看集数 <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z"/></svg></span>
         </div>
       </article>
     `;
@@ -294,7 +294,11 @@ function renderSeriesPage() {
         <span class="episode-title">${episode.title || "未命名集数"}</span>
         <span class="episode-question">${episode.central_question || ""}</span>
       </span>
-      <span class="episode-play-icon" aria-hidden="true">▶</span>
+      <span class="episode-play-icon" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7L8 5z"/>
+            </svg>
+          </span>
     `;
 
     li.appendChild(link);
@@ -313,7 +317,10 @@ function updateTransportButtons() {
 
 function updatePlayButton(isPlaying) {
   if (!els.btnPlay) return;
-  els.btnPlay.textContent = isPlaying ? "⏸" : "▶";
+  const playIcon = document.getElementById("play-icon");
+  const pauseIcon = document.getElementById("pause-icon");
+  if (playIcon) playIcon.style.display = isPlaying ? "none" : "";
+  if (pauseIcon) pauseIcon.style.display = isPlaying ? "" : "none";
   els.btnPlay.setAttribute("aria-label", isPlaying ? "暂停" : "播放");
 }
 

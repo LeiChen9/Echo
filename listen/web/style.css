@@ -419,6 +419,42 @@ main {
   font-size: 13px;
 }
 
+@media (max-width: 380px) {
+  .player-shell {
+    gap: 16px;
+  }
+
+  .player-art {
+    width: min(60vw, 200px);
+    height: min(60vw, 200px);
+    border-radius: 18px;
+  }
+
+  .transport-row {
+    gap: 16px;
+  }
+
+  .transport-btn {
+    width: 42px;
+    height: 42px;
+  }
+
+  .transport-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .transport-btn-primary {
+    width: 56px;
+    height: 56px;
+  }
+
+  .transport-btn-primary svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
 @media (min-width: 760px) {
   main {
     padding: 24px;
