@@ -1,4 +1,4 @@
-# Echo Listen — 部署手册
+# Drift Listen — 部署手册
 
 本手册面向首次部署：**Cloudflare Workers 静态资源**（托管页面）+ **R2**（托管音频）。全程可在免费额度内完成。
 
@@ -16,7 +16,7 @@
 
 1. 登录 Cloudflare Dashboard → **R2 Object Storage**
 2. **Create bucket**
-   - Bucket name：例如 `echo-audio`
+   - Bucket name：例如 `bonfire`
    - Location：选 **Automatic** 或离听众较近的亚太区域
 3. 进入 bucket → **Settings**
 4. 找到 **Public Development URL** → **Enable**
@@ -42,10 +42,10 @@
 ```bash
 cd listen
 npx wrangler login
-npx wrangler r2 object put echo-audio/neg_explain/EP01.mp3 --file="D:/Code/Echo/output/neg_explain/EP01.mp3" --remote --content-type audio/mpeg
+npx wrangler r2 object put bonfire/neg_explain/EP01.mp3 --file="D:/Code/Drift/output/neg_explain/EP01.mp3" --remote --content-type audio/mpeg
 ```
 
-- 把 `echo-audio` 换成你的 bucket 名
+- 把 `bonfire` 换成你的 bucket 名
 - 把 `--file` 换成本地 MP3 路径
 - **`--remote` 必加**，否则只写到本地模拟，不会进云端
 - Wrangler 单文件上限约 315MB，40MB 没问题
@@ -97,7 +97,7 @@ npx wrangler r2 object put echo-audio/neg_explain/EP01.mp3 --file="D:/Code/Echo/
 
 ```bash
 git add listen/
-git commit -m "Add Echo listen site"
+git commit -m "Add Drift listen site"
 git push
 ```
 
@@ -113,12 +113,12 @@ Cloudflare 已将 Pages 合并进 **Workers**。新版控制台里往往**没有
 
 1. Dashboard → **Workers & Pages** → **Create application**
 2. 选 **Connect to Git** / **Import an existing Git repository**（文案因账号而异）
-3. 授权 GitHub，选择 Echo 仓库
+3. 授权 GitHub，选择 Drift 仓库
 4. 构建设置：
 
    | 项 | 值 | 说明 |
    |---|---|---|
-   | Application / Project name | `echo-listen`（自定） | 与 `wrangler.jsonc` 里 `name` 一致更好 |
+   | Application / Project name | `drift-listen`（自定） | 与 `wrangler.jsonc` 里 `name` 一致更好 |
    | Production branch | `main` | 你的主分支 |
    | Root directory (Path) | **`listen`** | **重要**：让 Wrangler 读到 `wrangler.jsonc` |
    | Build command | **`npx wrangler deploy`** | 保持默认即可 |
@@ -130,7 +130,7 @@ Cloudflare 已将 Pages 合并进 **Workers**。新版控制台里往往**没有
 
 ```jsonc
 {
-  "name": "echo-listen",
+  "name": "drift-listen",
   "compatibility_date": "2026-07-03",
   "assets": {
     "directory": "./web"
@@ -146,7 +146,7 @@ Cloudflare 已将 Pages 合并进 **Workers**。新版控制台里往往**没有
 访问域名形如：
 
 ```
-https://echo-listen.<你的子域>.workers.dev
+https://drift-listen.<你的子域>.workers.dev
 ```
 
 在 Workers & Pages 项目页可看到准确 URL（有时也显示 `*.pages.dev`，以控制台为准）。

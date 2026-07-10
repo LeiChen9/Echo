@@ -1,5 +1,5 @@
 {
-  "name": "echo-listen",
+  "name": "drift-listen",
   "private": true,
   "scripts": {
     "stamp": "node scripts/stamp-version.mjs",

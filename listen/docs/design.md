@@ -1,8 +1,8 @@
-# Echo Listen — 设计文档
+# Drift Listen — 设计文档
 
 ## 1. 背景与目标
 
-Echo 项目的核心流水线（rewrite → TTS）在本地运行，与在线收听无关。Listen 模块是一个**独立的分发层**，让听众通过浏览器收听已生成的播客音频。
+Drift 项目的核心流水线（rewrite → TTS）在本地运行，与在线收听无关。Listen 模块是一个**独立的分发层**，让听众通过浏览器收听已生成的播客音频。
 
 **目标**
 
@@ -80,13 +80,13 @@ Echo 项目的核心流水线（rewrite → TTS）在本地运行，与在线收
 
 ## 5. 听众体验
 
-1. 打开 Pages 域名（如 `https://echo.pages.dev`）
+1. 打开 Pages 域名（如 `https://drift.pages.dev`）
 2. 页面加载 catalog → manifest → 渲染已发布集列表
 3. 点击某一集 → `<audio>` 从 R2 拉流播放
 4. 暂停或关闭页面 → 进度写入 `localStorage`
 5. 再次打开同一集 → 自动从上次位置续播
 
-续播 Key 格式：`echo:progress:{series_id}:{episode_id}`
+续播 Key 格式：`drift:progress:{series_id}:{episode_id}`
 
 ---
 
@@ -125,10 +125,10 @@ TTS 完成
 
 ---
 
-## 9. 与 Echo 主仓库的关系
+## 9. 与 Drift 主仓库的关系
 
 ```
-Echo/
+Drift/
 ├── rewriter.py, tts.py, output/   ← 生产流水线（本地）
 └── listen/                        ← 在线收听（Cloudflare）
     ├── web/                       ← Pages 发布目录

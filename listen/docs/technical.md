@@ -1,4 +1,4 @@
-# Echo Listen — 技术文档
+# Drift Listen — 技术文档
 
 ## 1. 目录结构
 
@@ -126,7 +126,7 @@ catalog.json ─┘
 | 切换集 | 先保存当前集进度，再加载新集 |
 | `ended` | 清除该集进度记录 |
 
-Storage Key：`echo:progress:{series_id}:{episode_id}`  
+Storage Key：`drift:progress:{series_id}:{episode_id}`  
 值：秒数（浮点字符串）
 
 ### 3.4 URL 参数

@@ -220,3 +220,4 @@ __marimo__/
 *.mp3 
 asset/
 node_modules/
+listen/web/config.json

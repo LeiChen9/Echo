@@ -1,5 +1,5 @@
 {
-  "name": "echo-listen",
+  "name": "drift-listen",
   "compatibility_date": "2026-07-03",
   "assets": {
     "directory": "./web"

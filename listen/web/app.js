@@ -65,7 +65,7 @@ function getVipFromUrl() {
 
 function getVipFromStorage() {
   try {
-    return localStorage.getItem("echo:vip") === "1";
+    return localStorage.getItem("drift:vip") === "1";
   } catch {
     return false;
   }
@@ -152,7 +152,7 @@ function formatTime(seconds) {
 }
 
 function progressKey(seriesId, episodeId) {
-  return `echo:progress:${seriesId}:${episodeId}`;
+  return `drift:progress:${seriesId}:${episodeId}`;
 }
 
 function getSavedProgress(seriesId, episodeId) {
@@ -591,7 +591,7 @@ function renderVipSection() {
       </div>
     `;
     document.getElementById("vip-exit-btn")?.addEventListener("click", () => {
-      localStorage.removeItem("echo:vip");
+      localStorage.removeItem("drift:vip");
       window.location.href = removeVipFromUrl(window.location.href);
     });
   } else {
@@ -608,7 +608,7 @@ function renderVipSection() {
       if (!code) return;
       const codes = state.siteConfig?.vip_codes;
       if (Array.isArray(codes) && codes.includes(code)) {
-        localStorage.setItem("echo:vip", "1");
+        localStorage.setItem("drift:vip", "1");
         window.location.href = "./index.html?vip=1";
       } else {
         setStatus("邀请码错误");
