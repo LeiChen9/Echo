@@ -7,86 +7,122 @@
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body class="play-body">
-  <header class="header header-minimal">
-    <a class="link-button" id="back-to-series" href="./index.html">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:4px">
+  <div class="play-container">
+    <header class="play-header">
+      <a class="play-back" id="back-to-series" href="./index.html">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
           <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
         </svg>
-        <span style="vertical-align:middle">返回</span>
+        <span>返回</span>
       </a>
-    <p class="series-title series-title-center" id="series-title"></p>
-    <div id="vip-section"></div>
-  </header>
+      <div id="vip-section"></div>
+    </header>
 
-  <main class="play-main">
-    <section class="player-shell" id="player-shell">
-      <div class="player-art" id="player-art">
-        <span class="player-art-letter" id="player-art-letter">D</span>
+    <div class="play-scroll" id="play-scroll">
+      <p class="play-book" id="play-book"></p>
+      <h1 class="play-title" id="play-title">加载中…</h1>
+      <p class="play-meta" id="play-meta">
+        <span id="play-date"></span>
+        <span class="play-meta-dot" id="play-meta-dot">·</span>
+        <span id="play-duration"></span>
+      </p>
+
+      <div class="play-cover-row">
+        <div class="play-cover" id="play-cover">
+          <span class="play-cover-letter" id="play-cover-letter">D</span>
+        </div>
+        <span class="play-book-label" id="play-book-label"></span>
       </div>
 
-      <div class="player-meta">
-        <p class="player-book" id="player-book"></p>
-        <h2 class="player-title" id="player-title">加载中…</h2>
-        <p class="player-subtitle" id="player-subtitle"></p>
-      </div>
-
-      <div class="player-controls">
-        <div class="progress-row">
-          <span class="time-label" id="time-current">0:00</span>
-          <input
-            type="range"
-            class="progress-bar"
-            id="progress-bar"
-            min="0"
-            max="1000"
-            value="0"
-            aria-label="播放进度"
-          />
-          <span class="time-label" id="time-duration">0:00</span>
+      <section class="play-outline" id="play-outline">
+        <div class="outline-block">
+          <svg class="outline-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <div class="outline-content">
+            <p class="outline-question" id="outline-question"></p>
+          </div>
         </div>
 
-        <div class="transport-row">
-          <button type="button" class="transport-btn" id="btn-prev" aria-label="上一集">
-            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="22" height="22">
-              <path fill="currentColor" d="M15.41 7.41 10.83 12l4.58 4.59L14 18l-6-6 6-6zM18 6h-2v12h2V6z"/>
-            </svg>
-          </button>
-          <button type="button" class="transport-btn" id="btn-rewind" aria-label="后退 15 秒">
-            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="22" height="22">
-              <path fill="currentColor" d="M11.99 5V1l-5 5 5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6h-2c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
-              <text x="12" y="16.5" text-anchor="middle" font-size="8" font-weight="700" fill="currentColor">15</text>
-            </svg>
-          </button>
-          <button type="button" class="transport-btn transport-btn-primary" id="btn-play" aria-label="播放">
-            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="26" height="26" id="play-icon">
-              <path fill="currentColor" d="M8 5v14l11-7L8 5z"/>
-            </svg>
-            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="26" height="26" id="pause-icon" style="display:none">
-              <rect x="6" y="4" width="4" height="16" rx="1" fill="currentColor"/>
-              <rect x="14" y="4" width="4" height="16" rx="1" fill="currentColor"/>
-            </svg>
-          </button>
-          <button type="button" class="transport-btn" id="btn-forward" aria-label="快进 15 秒">
-            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="24" height="24">
-              <path fill="currentColor" d="M12.01 5V1l4 5-4 5V7c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6h2c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8z"/>
-              <text x="12" y="16.5" text-anchor="middle" font-size="8" font-weight="700" fill="currentColor">15</text>
-            </svg>
-          </button>
-          <button type="button" class="transport-btn" id="btn-next" aria-label="下一集">
-            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="24" height="24">
-              <path fill="currentColor" d="M9 6 15 12 9 18V6zm6 0 6 6-6 6V6z"/>
-            </svg>
-          </button>
+        <div class="outline-block">
+          <svg class="outline-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="9" x2="20" y2="9"/>
+            <line x1="4" y1="15" x2="20" y2="15"/>
+            <line x1="10" y1="3" x2="8" y2="21"/>
+            <line x1="16" y1="3" x2="14" y2="21"/>
+          </svg>
+          <div class="outline-content">
+            <div class="concept-pillars" id="concept-pillars"></div>
+          </div>
         </div>
-      </div>
 
+        <div class="outline-block outline-block-subtle">
+          <svg class="outline-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="15" x2="8" y2="15"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+          <div class="outline-content">
+            <p class="outline-summary" id="outline-summary"></p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="player-bar" id="player-bar">
+      <div class="progress-row">
+        <span class="time-label" id="time-current">0:00</span>
+        <input
+          type="range"
+          class="progress-bar"
+          id="progress-bar"
+          min="0"
+          max="1000"
+          value="0"
+          aria-label="播放进度"
+        />
+        <span class="time-label" id="time-duration">0:00</span>
+      </div>
+      <div class="transport-row">
+        <button type="button" class="transport-btn" id="btn-prev" aria-label="上一集">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="22" height="22">
+            <path fill="currentColor" d="M15.41 7.41 10.83 12l4.58 4.59L14 18l-6-6 6-6zM18 6h-2v12h2V6z"/>
+          </svg>
+        </button>
+        <button type="button" class="transport-btn" id="btn-rewind" aria-label="后退 15 秒">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="22" height="22">
+            <path fill="currentColor" d="M11.99 5V1l-5 5 5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6h-2c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+            <text x="12" y="16.5" text-anchor="middle" font-size="8" font-weight="700" fill="currentColor">15</text>
+          </svg>
+        </button>
+        <button type="button" class="transport-btn transport-btn-primary" id="btn-play" aria-label="播放">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="26" height="26" id="play-icon">
+            <path fill="currentColor" d="M8 5v14l11-7L8 5z"/>
+          </svg>
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="26" height="26" id="pause-icon" style="display:none">
+            <rect x="6" y="4" width="4" height="16" rx="1" fill="currentColor"/>
+            <rect x="14" y="4" width="4" height="16" rx="1" fill="currentColor"/>
+          </svg>
+        </button>
+        <button type="button" class="transport-btn" id="btn-forward" aria-label="快进 15 秒">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M12.01 5V1l4 5-4 5V7c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6h2c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8z"/>
+            <text x="12" y="16.5" text-anchor="middle" font-size="8" font-weight="700" fill="currentColor">15</text>
+          </svg>
+        </button>
+        <button type="button" class="transport-btn" id="btn-next" aria-label="下一集">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M9 6 15 12 9 18V6zm6 0 6 6-6 6V6z"/>
+          </svg>
+        </button>
+      </div>
       <audio id="audio" preload="metadata"></audio>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <p id="status-text"></p>
-  </footer>
+    </div>
+  </div>
 
   <script type="module" src="./app.js"></script>
 </body>

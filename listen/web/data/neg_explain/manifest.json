@@ -7,25 +7,45 @@
       "episode_id": "EP01",
       "title": "阐释的报复：为什么我们对艺术的过度解读正在毁掉审美？",
       "central_question": "为什么现代批评中追求“意义”的冲动反而成为了对艺术体验的阻碍？",
-      "duration_sec": null,
+      "duration_sec": 2772,
       "audio_path": "neg_explain/ep01.mp3",
-      "published": true
+      "published": true,
+      "key_concepts": [
+        "模仿论 (Mimesis)",
+        "内容说 (Content)",
+        "阐释 (Interpretation)",
+        "艺术色情学 (An erotics of art)"
+      ],
+      "reasoning_summary": "作者首先追溯了艺术理论的起源——古希腊的“模仿论”，指出这种理论强迫艺术通过“内容”来证明其合法性，导致了形式与内容的割裂。接着，她分析了阐释的历史演变：从古典时代的“修补”到现代（如马克思和弗洛伊德）的“挖掘”。她重点论证了现代阐释是一种“智力对艺术的报复”，通过将作品还原为内容来驯服艺术的紧张感。通过分析卡夫卡、贝克特等人的案例，她推导出批评家的任务应该是揭示艺术作品“是如何”呈现的，而非它“意味着什么”，最终提出用“艺术色情学”取代“艺术阐释学”。"
     },
     {
       "episode_id": "EP02",
       "title": "风格即意志：剥离装饰，艺术的灵魂如何呈现为身体？",
       "central_question": "当我们将风格与内容视为不可分割的整体时，风格是如何作为艺术家的意志标记而存在的？",
-      "duration_sec": null,
+      "duration_sec": 3026,
       "audio_path": "neg_explain/ep02.mp3",
-      "published": true
+      "published": true,
+      "key_concepts": [
+        "风格 (Style)",
+        "风格化 (Stylization)",
+        "意志 (Will)",
+        "透明 (Transparency)"
+      ],
+      "reasoning_summary": "作者批判了批评界口头上承认“风格与内容统一”但实践中仍将其对立的伪善。她反转了“风格是外衣”的隐喻，提出“风格是灵魂，而灵魂呈现为身体的形式”。通过分析“风格化”与“风格”的区别，她指出风格化是由于艺术家与素材保持距离而产生的张力。随后，她引入“意志”概念，论证艺术是意志在物品中的客观化，而风格则是意志的选择原则。最后，她解释了风格的认知功能：它是记忆的载体，也是我们感知世界的阐释模式。"
     },
     {
       "episode_id": "EP03",
       "title": "受难者的典范：现代艺术家为何取代了古代圣徒？",
       "central_question": "为什么现代意识倾向于通过艺术家的痛苦和自我暴露来评估真理的可靠性？",
       "duration_sec": null,
-      "audio_path": "neg_explain/EP03.mp3",
-      "published": true
+      "audio_path": "neg_explain/ep03.mp3",
+      "published": true,
+      "key_concepts": [
+        "受难者典范 (Exemplary Sufferer)",
+        "道德美 (Moral Beauty)",
+        "非反思性诚实"
+      ],
+      "reasoning_summary": "作者通过帕韦哲的日记切入，论证了现代读者对作家袒露隐私的迷恋源于基督教内省传统的延续。她提出了“艺术家取代圣徒成为受难者典范”的假说，指出作家是发现“受难在艺术经济中用处”的人。通过分析西蒙娜·韦伊的狂热禁欲主义和加缪的“道德美”，她推导出：我们评估真理不再根据客观标准，而是根据作家在受难中付出的代价。最后，通过莱里斯的自我贬低式自传，她展示了这种诚实如何转变为一种对抗“世界非现实感”的心理技术。"
     },
     {
       "episode_id": "EP04",
@@ -33,7 +53,13 @@
       "central_question": "在追求科学客观性的结构分析与坚持历史道德评价的现实主义批评之间，艺术的真理性该如何安放？",
       "duration_sec": null,
       "audio_path": "neg_explain/EP04.mp3",
-      "published": false
+      "published": false,
+      "key_concepts": [
+        "结构人类学 (Structural Anthropology)",
+        "冷社会与热社会",
+        "批判现实主义 (Critical Realism)"
+      ],
+      "reasoning_summary": "作者首先勾勒了列维-斯特劳斯作为“英雄人类学家”的形象，解释他如何利用“结构”这一几何学工具将研究对象去人性化，以实现一种极端的客观性和精神净化。这种“冷”的科学视角是对历史加速导致恶心的疗法。随后，她转向乔治·卢卡奇，批评他由于执着于十九世纪的“现实主义”教条而对现代主义（如卡夫卡、贝克特）表现出的迟钝。通过对比，她论证了卢卡奇这种粗糙的模仿论虽然具有道德热诚，却因无法接纳艺术的自主形式而走向低劣。"
     },
     {
       "episode_id": "EP05",
@@ -41,7 +67,13 @@
       "central_question": "为什么现代前卫艺术必须通过摧毁情节和心理描写来寻找新的现实感？",
       "duration_sec": null,
       "audio_path": "neg_explain/EP05.mp3",
-      "published": false
+      "published": false,
+      "key_concepts": [
+        "潜对话 (Tropisms)",
+        "反戏剧 (Anti-theater)",
+        "陈词滥调的诗意"
+      ],
+      "reasoning_summary": "作者通过萨特对热内的哲学诊断，揭示了“存在作为仪式”的审美可能。随后，她重点分析了纳塔丽·萨洛特对传统现实主义小说的批判：生活并不是栩栩如生的，心理分析已沦为陈词滥调。她介绍了萨洛特如何通过“潜对话”和拒绝塑造“人物”来捕捉情感的微小颤动。最后，她讨论了尤内斯库如何利用“陈词滥调”和“物质的非理性增加”来构建一种无意义的戏剧，论证了题材在现代艺术中已转化为技巧本身。"
     },
     {
       "episode_id": "EP06",
@@ -49,7 +81,13 @@
       "central_question": "在悲剧已经消亡的时代，剧场是否还能承担起作为公共道德审判论坛的功能？",
       "duration_sec": null,
       "audio_path": "neg_explain/EP06.mp3",
-      "published": false
+      "published": false,
+      "key_concepts": [
+        "纪实剧 (Documentary Drama)",
+        "元戏剧 (Metatheatre)",
+        "自我意识 (Self-consciousness)"
+      ],
+      "reasoning_summary": "作者通过艾希曼审判的戏剧性特征，引入对霍赫胡特《代表》的分析。她探讨了该剧如何以纪实的力量挑战天主教会在大屠杀中的沉默，指出该剧的成功不在于艺术水准，而在于它忠实于历史真相。接着，她借用阿贝尔的“元戏剧”理论，解释了悲剧之所以在现代消亡是因为“自我意识”的过度通胀。最后，她通过对米勒、奥尼尔等剧作的现场纪实评论，无情地批判了美国戏剧中理智简单化导致的道德不诚实。"
     },
     {
       "episode_id": "EP07",
@@ -57,7 +95,14 @@
       "central_question": "如何通过极端的节制与“残酷”的视觉冲击，在胶片上呈现人类灵魂的重负与神恩？",
       "duration_sec": null,
       "audio_path": "neg_explain/EP07.mp3",
-      "published": false
+      "published": false,
+      "key_concepts": [
+        "残酷戏剧 (Theater of Cruelty)",
+        "反思艺术 (Reflective Art)",
+        "音画重复",
+        "重负与神恩"
+      ],
+      "reasoning_summary": "作者首先分析了《马拉/萨德》中疯狂作为戏剧活力的表现，引出阿尔托“残酷戏剧”对传统语言戏剧的颠覆。随后，她将目光转向布勒松，这位“反思形式的电影大师”。她详细拆解了布勒松的风格：通过对形式的重复和叙事的“多余性”来延宕观众情感，从而制造出更强烈的精神力量。她借用西蒙娜·韦伊的“重负与神恩”解释布勒松电影中的精神物理过程，论证了神圣性是如何在行为静止、意志消失的瞬间出现的。"
     },
     {
       "episode_id": "EP08",
@@ -65,7 +110,13 @@
       "central_question": "为什么现代人既迷恋戈达尔式的离碎叙事，又无法抗拒科幻电影中城市毁灭的壮观景观？",
       "duration_sec": null,
       "audio_path": "neg_explain/EP08.mp3",
-      "published": false
+      "published": false,
+      "key_concepts": [
+        "影像语言 (Ciné-phrase)",
+        "毁灭美学 (Aesthetics of destruction)",
+        "非人化 (Inhumanity)"
+      ],
+      "reasoning_summary": "作者首先将戈达尔的《随心所欲》定义为一种“提供证据”而非分析的电影。她解释了戈达尔如何通过音画分离、十二个断裂的插曲来证实“生活就是生活”的本体论事实。随后，她转向科幻电影这一亚体裁，深入剖析其背后的“毁灭美学”。她指出，科幻片对城市大毁灭的描绘是对核时代集体创伤的心理补偿，它通过极端简单化的道德冲突和非人化的异星生物，将不可承受的恐怖“正常化”。"
     },
     {
       "episode_id": "EP09",
@@ -73,7 +124,14 @@
       "central_question": "为什么“坎普”趣味这种对非自然、夸张之物的热爱，成为了现代人逃避严肃道德重负的出口？",
       "duration_sec": null,
       "audio_path": "neg_explain/EP09.mp3",
-      "published": false
+      "published": false,
+      "key_concepts": [
+        "坎普 (Camp)",
+        "事件剧 (Happenings)",
+        "极端并置",
+        "身体的复活"
+      ],
+      "reasoning_summary": "作者首先通过杰克·史密斯的《淫奴》引入对感官快感的肯定，驳斥了将其简单归类为淫秽的偏见。接着，她在著名的《关于“坎普”的札记》中，系统地界定了这种“对技巧和夸张的热爱”：坎普是废黜严肃、拥护游戏精神的唯美主义。她详细列举了坎普的特征，如“引号中的生活”、非人化的美感等。随后通过“事件剧”论证了超现实主义原则向感官极限的推演。最后，通过分析诺曼·布朗对精神分析的重新阐释，将审美解放与身体的复活联系在一起。"
     },
     {
       "episode_id": "EP10",
@@ -81,7 +139,14 @@
       "central_question": "为什么文学不再是现代文化的典范，而一种跨越科学与艺术的新感受力正在重塑我们的意识？",
       "duration_sec": null,
       "audio_path": "neg_explain/EP10.mp3",
-      "published": false
+      "published": false,
+      "key_concepts": [
+        "两种文化 (Two Cultures)",
+        "新感受力 (The New Sensibility)",
+        "感觉意识的专家",
+        "虚无主义时代"
+      ],
+      "reasoning_summary": "作者针对斯诺的“两种文化”议题提出反驳，指出这种对立是基于对艺术静止不变的误解。她宣布了一种“新感受力”的诞生：它不以文学为中心，而是大量吸收科学技术成果，强调冷静、精确和非个人性。艺术不再是“对生活的批评”，而是“对生活的拓展”。最后，在三十年后的后记中，作者反思了当初的“激进”如何变成了今日消费资本主义的“庸常”，表达了对那个理想主义时代及其审美价值的重申。"
     }
   ]
 }

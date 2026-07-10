@@ -6,7 +6,7 @@ const state = {
   episodes: [],
   currentEpisode: null,
   currentIndex: -1,
-  isVip: false
+  isVip: false,
 };
 
 const els = {
@@ -31,7 +31,18 @@ const els = {
   btnRewind: document.getElementById("btn-rewind"),
   btnForward: document.getElementById("btn-forward"),
   btnNext: document.getElementById("btn-next"),
-  audio: document.getElementById("audio")
+  audio: document.getElementById("audio"),
+  playTitle: document.getElementById("play-title"),
+  playBook: document.getElementById("play-book"),
+  playDate: document.getElementById("play-date"),
+  playDuration: document.getElementById("play-duration"),
+  playMetaDot: document.getElementById("play-meta-dot"),
+  playCover: document.getElementById("play-cover"),
+  playCoverLetter: document.getElementById("play-cover-letter"),
+  playBookLabel: document.getElementById("play-book-label"),
+  outlineQuestion: document.getElementById("outline-question"),
+  conceptPillars: document.getElementById("concept-pillars"),
+  outlineSummary: document.getElementById("outline-summary")
 };
 
 function seekAudioBy(offsetSeconds) {
@@ -94,8 +105,8 @@ function removeVipFromUrl(urlStr) {
 
 function getPageType() {
   if (els.seriesCards) return "home";
-  if (els.episodeList && !els.playerShell) return "series";
-  if (els.playerShell) return "play";
+  if (els.episodeList) return "series";
+  if (document.getElementById("play-outline")) return "play";
   return "unknown";
 }
 
@@ -517,21 +528,75 @@ function loadEpisode(episode, autoplay) {
   if (els.playerBook) els.playerBook.textContent = bookTitle;
   if (els.seriesTitle) els.seriesTitle.textContent = bookTitle;
 
+  if (els.playBook) els.playBook.textContent = bookTitle;
+  if (els.playTitle) els.playTitle.textContent = title;
+  if (els.playBookLabel) els.playBookLabel.textContent = bookTitle;
+
   const coverLetter = bookTitle.charAt(0) || "E";
+  if (els.playCoverLetter) els.playCoverLetter.textContent = coverLetter;
   if (els.playerArtLetter) els.playerArtLetter.textContent = coverLetter;
 
   const coverUrl = resolveCoverUrl(state.seriesEntry);
-  if (els.playerArt) {
+  [els.playCover, els.playerArt].forEach((el) => {
+    if (!el) return;
     if (coverUrl) {
-      els.playerArt.style.backgroundImage = `url("${coverUrl}")`;
-      if (els.playerArtLetter) els.playerArtLetter.style.display = "none";
+      el.style.backgroundImage = `url("${coverUrl}")`;
     } else {
-      els.playerArt.style.backgroundImage = "";
-      if (els.playerArtLetter) els.playerArtLetter.style.display = "";
+      el.style.backgroundImage = "";
     }
+  });
+  if (els.playCoverLetter) {
+    els.playCoverLetter.style.display = coverUrl ? "none" : "";
+  }
+  if (els.playerArtLetter) {
+    els.playerArtLetter.style.display = coverUrl ? "none" : "";
+  }
+
+  if (els.playDate) {
+    const date = state.manifest?.updated_at;
+    if (date) {
+      els.playDate.textContent = date;
+      els.playDate.style.display = "";
+    } else {
+      els.playDate.style.display = "none";
+    }
+  }
+  if (els.playDuration) {
+    const sec = episode.duration_sec;
+    if (sec != null && Number.isFinite(sec)) {
+      els.playDuration.textContent = formatTime(sec);
+      els.playDuration.style.display = "";
+    } else {
+      els.playDuration.style.display = "none";
+    }
+  }
+  if (els.playMetaDot) {
+    const hasDate = els.playDate && els.playDate.style.display !== "none";
+    const hasDuration = els.playDuration && els.playDuration.style.display !== "none";
+    els.playMetaDot.style.display = hasDate && hasDuration ? "" : "none";
   }
 
   document.title = `${title} — Drift`;
+
+  if (els.outlineQuestion) {
+    els.outlineQuestion.textContent = episode.central_question || "";
+  }
+
+  if (els.conceptPillars) {
+    els.conceptPillars.innerHTML = "";
+    if (Array.isArray(episode.key_concepts)) {
+      episode.key_concepts.forEach((concept) => {
+        const pill = document.createElement("span");
+        pill.className = "concept-pillar";
+        pill.textContent = concept;
+        els.conceptPillars.appendChild(pill);
+      });
+    }
+  }
+
+  if (els.outlineSummary) {
+    els.outlineSummary.textContent = episode.reasoning_summary || "";
+  }
 
   const mediaUrl = resolveMediaUrl(episode);
   if (!els.audio) return;
@@ -565,6 +630,7 @@ function renderPlayPage(episodeId) {
 
   if (!published.length) {
     if (els.playerTitle) els.playerTitle.textContent = "暂无可播放集数";
+    if (els.playTitle) els.playTitle.textContent = "暂无可播放集数";
     setStatus("该系列还没有已发布的集数");
     return;
   }

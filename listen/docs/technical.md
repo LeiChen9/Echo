@@ -191,6 +191,8 @@ episodes = [{
     'episode_id': ep['episode_id'],
     'title': ep['title'],
     'central_question': ep['central_question'],
+    'key_concepts': ep.get('key_concepts', []),
+    'reasoning_summary': ep.get('reasoning_summary', ''),
     'duration_sec': None,
     'audio_path': f'{series}/{ep[\"episode_id\"]}.mp3',
     'published': False,
