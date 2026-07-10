@@ -5,7 +5,8 @@ const state = {
   manifest: null,
   episodes: [],
   currentEpisode: null,
-  currentIndex: -1
+  currentIndex: -1,
+  isVip: false
 };
 
 const els = {
@@ -50,11 +51,45 @@ function seekAudioBy(offsetSeconds) {
 
 const paths = {
   siteConfig: "./config.json",
-  catalog: "./data/catalog.json"
+  catalog: "./data/catalog.json",
+  vipCatalog: "./data/catalog-vip.json"
 };
 
 function getQueryParam(name) {
   return new URLSearchParams(window.location.search).get(name);
+}
+
+function getVipFromUrl() {
+  return getQueryParam("vip") === "1";
+}
+
+function getVipFromStorage() {
+  try {
+    return localStorage.getItem("echo:vip") === "1";
+  } catch {
+    return false;
+  }
+}
+
+function isVipMode() {
+  return state.isVip || getVipFromUrl() || getVipFromStorage();
+}
+
+function vipLink(path) {
+  if (!isVipMode()) return path;
+  if (path.includes("vip=1")) return path;
+  const separator = path.includes("?") ? "&" : "?";
+  return `${path}${separator}vip=1`;
+}
+
+function removeVipFromUrl(urlStr) {
+  try {
+    const url = new URL(urlStr, window.location.origin);
+    url.searchParams.delete("vip");
+    return url.pathname + url.search + url.hash;
+  } catch {
+    return urlStr;
+  }
 }
 
 function getPageType() {
@@ -183,21 +218,35 @@ function loadInlineCatalog() {
 
 async function loadCatalog() {
   const inline = loadInlineCatalog();
-  if (inline) return inline;
-
-  try {
-    const res = await fetch(resolveUrl(paths.catalog), { cache: "no-store" });
-    if (!res.ok) throw new Error("catalog load failed");
-    state.catalog = await res.json();
-    return state.catalog;
-  } catch (err) {
-    console.error(err);
-    if (els.seriesCards?.querySelector(".series-card-link")) {
+  if (inline) { state.catalog = inline; }
+  else {
+    try {
+      const res = await fetch(resolveUrl(paths.catalog), { cache: "no-store" });
+      if (!res.ok) throw new Error("catalog load failed");
+      state.catalog = await res.json();
+    } catch (err) {
+      console.error(err);
+      if (els.seriesCards?.querySelector(".series-card-link")) return null;
+      setStatus("无法加载书目目录");
       return null;
     }
-    setStatus("无法加载书目目录");
-    return null;
   }
+
+  if (isVipMode()) {
+    try {
+      const res = await fetch(resolveUrl(paths.vipCatalog), { cache: "no-store" });
+      if (res.ok) {
+        const vipSeries = (await res.json())?.series;
+        if (Array.isArray(vipSeries) && vipSeries.length) {
+          state.catalog = {
+            series: [...(state.catalog?.series || []), ...vipSeries]
+          };
+        }
+      }
+    } catch {}
+  }
+
+  return state.catalog;
 }
 
 async function loadSeriesManifest(seriesEntry) {
@@ -236,7 +285,7 @@ function renderHomePage() {
   seriesList.forEach((item) => {
     const link = document.createElement("a");
     link.className = "series-card-link";
-    link.href = `./series.html?series=${encodeURIComponent(item.series_id)}`;
+    link.href = vipLink(`./series.html?series=${encodeURIComponent(item.series_id)}`);
 
     const coverLetter = (item.book_title || item.series_id || "书").charAt(0);
     const coverUrl = resolveCoverUrl(item);
@@ -287,7 +336,7 @@ function renderSeriesPage() {
 
     const link = document.createElement("a");
     link.className = "episode-link";
-    link.href = `./play.html?series=${encodeURIComponent(entry.series_id)}&ep=${encodeURIComponent(episode.episode_id)}`;
+    link.href = vipLink(`./play.html?series=${encodeURIComponent(entry.series_id)}&ep=${encodeURIComponent(episode.episode_id)}`);
     link.innerHTML = `
       <span class="episode-index">${String(index + 1).padStart(2, "0")}</span>
       <span class="episode-content">
@@ -511,7 +560,7 @@ function renderPlayPage(episodeId) {
   const published = getPublishedEpisodes();
 
   if (els.backToSeries) {
-    els.backToSeries.href = `./series.html?series=${encodeURIComponent(entry.series_id)}`;
+    els.backToSeries.href = vipLink(`./series.html?series=${encodeURIComponent(entry.series_id)}`);
   }
 
   if (!published.length) {
@@ -530,12 +579,68 @@ function renderPlayPage(episodeId) {
   loadEpisode(target, Boolean(episodeId));
 }
 
+function renderVipSection() {
+  const container = document.getElementById("vip-section");
+  if (!container) return;
+
+  if (isVipMode()) {
+    container.innerHTML = `
+      <div class="vip-active-bar">
+        <span class="vip-badge">VIP</span>
+        <button class="vip-exit-btn" id="vip-exit-btn">退出 VIP</button>
+      </div>
+    `;
+    document.getElementById("vip-exit-btn")?.addEventListener("click", () => {
+      localStorage.removeItem("echo:vip");
+      window.location.href = removeVipFromUrl(window.location.href);
+    });
+  } else {
+    container.innerHTML = `
+      <div class="vip-invite-form">
+        <input type="password" class="vip-input" id="vip-code-input" placeholder="邀请码" />
+        <button class="vip-submit-btn" id="vip-submit-btn">进入</button>
+      </div>
+    `;
+    const input = document.getElementById("vip-code-input");
+    const btn = document.getElementById("vip-submit-btn");
+    const submit = () => {
+      const code = input?.value?.trim();
+      if (!code) return;
+      const codes = state.siteConfig?.vip_codes;
+      if (Array.isArray(codes) && codes.includes(code)) {
+        localStorage.setItem("echo:vip", "1");
+        window.location.href = "./index.html?vip=1";
+      } else {
+        setStatus("邀请码错误");
+      }
+    };
+    btn?.addEventListener("click", submit);
+    input?.addEventListener("keydown", (e) => { if (e.key === "Enter") submit(); });
+  }
+}
+
+function patchStaticLinks() {
+  if (!isVipMode()) return;
+  document.querySelectorAll('a[href^="./"], a[href^="/"]').forEach((a) => {
+    const href = a.getAttribute("href");
+    if (href && !href.includes("vip=1")) {
+      const sep = href.includes("?") ? "&" : "?";
+      a.setAttribute("href", `${href}${sep}vip=1`);
+    }
+  });
+}
+
 async function init() {
   setStatus("加载中…");
+
+  state.isVip = getVipFromUrl() || getVipFromStorage();
 
   await loadSiteConfig();
   const catalog = await loadCatalog();
   const pageType = getPageType();
+
+  renderVipSection();
+  if (pageType !== "home") patchStaticLinks();
 
   if (pageType === "home") {
     if (catalog) renderHomePage();

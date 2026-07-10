@@ -479,3 +479,77 @@ main {
     background: #faf6ef;
   }
 }
+
+#vip-section {
+  margin-top: 10px;
+}
+
+.vip-invite-form {
+  display: flex;
+  gap: 8px;
+  max-width: 300px;
+}
+
+.vip-input {
+  flex: 1;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 13px;
+  outline: none;
+}
+
+.vip-input:focus {
+  border-color: var(--accent-2);
+}
+
+.vip-submit-btn {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.vip-submit-btn:hover {
+  background: var(--accent-2);
+}
+
+.vip-active-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vip-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #bf7b3a, #d4a54a);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.vip-exit-btn {
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.vip-exit-btn:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
