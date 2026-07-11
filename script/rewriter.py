@@ -7,8 +7,8 @@ from core.llm import llm_call, get_llm_client
 from script.utils import format_list, get_episode_text
 
 
-def _save_failed_attempt(
-    fails_dir: Path,
+def _save_call_log(
+    log_dir: Path,
     episode: dict,
     attempt: int,
     prompt: str,
@@ -16,20 +16,18 @@ def _save_failed_attempt(
     original_len: int,
     output_len: int,
     min_required_len: int,
+    status: str,  # "success" or "failure"
 ) -> None:
-    fails_dir.mkdir(parents=True, exist_ok=True)
+    log_dir.mkdir(parents=True, exist_ok=True)
 
     max_n = 0
-    for f in fails_dir.iterdir():
-        if m := re.match(r"attempt(\d+)_meta\.json", f.name):
+    for f in log_dir.iterdir():
+        if m := re.match(r"attempt(\d+)\.log", f.name):
             max_n = max(max_n, int(m.group(1)))
     n = max_n + 1
 
-    prefix = f"attempt{n}"
-    (fails_dir / f"{prefix}_input.txt").write_text(prompt, encoding="utf-8")
-    (fails_dir / f"{prefix}_output.txt").write_text(output, encoding="utf-8")
-
     meta = {
+        "status": status,
         "attempt_in_session": attempt,
         "global_attempt": n,
         "episode_id": episode.get("episode_id", ""),
@@ -39,14 +37,14 @@ def _save_failed_attempt(
         "min_required_len": min_required_len,
         "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S"),
     }
-    (fails_dir / f"{prefix}_meta.json").write_text(
-        json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
 
-    print(f"已保存失败试次到 {fails_dir / prefix}_*")
+    content = f"---META---\n{json.dumps(meta, ensure_ascii=False, indent=2)}\n---INPUT---\n{prompt}\n---OUTPUT---\n{output}\n"
+    (log_dir / f"attempt{n}.log").write_text(content, encoding="utf-8")
+
+    print(f"已保存调用日志到 {log_dir / f'attempt{n}.log'}")
 
 
-def script_rewrite(episode: dict, sections: dict[str, dict], prompt_template: str | None = None, max_retries: int = 3, client=None, fails_dir: Path | None = None) -> str:
+def script_rewrite(episode: dict, sections: dict[str, dict], prompt_template: str | None = None, max_retries: int = 3, client=None, fails_dir: Path | None = None, success_dir: Path | None = None) -> str:
     if client is None:
         client = get_llm_client()
 
@@ -61,10 +59,12 @@ def script_rewrite(episode: dict, sections: dict[str, dict], prompt_template: st
         script_len = len(script)
         print(f"Generated {script_len} words from original {original_len} words")
         if script_len >= min_required_len:
+            if success_dir is not None:
+                _save_call_log(success_dir, episode, attempt, prompt, script, original_len, script_len, min_required_len, status="success")
             return script
         print(f"警告：输出 {script_len} 字 < 最小要求 {min_required_len} 字，准备重试...")
         if fails_dir is not None:
-            _save_failed_attempt(fails_dir, episode, attempt, prompt, script, original_len, script_len, min_required_len)
+            _save_call_log(fails_dir, episode, attempt, prompt, script, original_len, script_len, min_required_len, status="failure")
 
     raise RuntimeError(f"脚本生成失败：经过 {max_retries} 次重试，输出长度仍未达到最小要求")
 
@@ -126,7 +126,7 @@ def _build_prompt(episode: dict, full_text: str, prompt_template: str | None = N
 '''
 
 
-def script_rewrite_hardcore(episode: dict, book_data: dict, client=None, fails_dir: Path | None = None) -> str:
+def script_rewrite_hardcore(episode: dict, book_data: dict, client=None, fails_dir: Path | None = None, success_dir: Path | None = None) -> str:
     if client is None:
         client = get_llm_client()
 
@@ -145,10 +145,12 @@ def script_rewrite_hardcore(episode: dict, book_data: dict, client=None, fails_d
         script_len = len(script)
         print(f"Generated {script_len} words from original {original_len} words")
         if script_len >= min_required_len:
+            if success_dir is not None:
+                _save_call_log(success_dir, episode, attempt, prompt, script, original_len, script_len, min_required_len, status="success")
             return script
         print(f"警告：输出 {script_len} 字 < 最小要求 {min_required_len} 字，准备重试...")
         if fails_dir is not None:
-            _save_failed_attempt(fails_dir, episode, attempt, prompt, script, original_len, script_len, min_required_len)
+            _save_call_log(fails_dir, episode, attempt, prompt, script, original_len, script_len, min_required_len, status="failure")
 
     raise RuntimeError(f"脚本生成失败")
 

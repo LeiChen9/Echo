@@ -34,7 +34,8 @@ def main():
             script_draft = read_text(draft_path)
         else:
             fails_dir = cfg.script_dir / "_fails" / ep_id
-            script_draft = script_rewrite(episode, sections, fails_dir=fails_dir)
+            success_dir = cfg.script_dir / "_success" / ep_id
+            script_draft = script_rewrite(episode, sections, fails_dir=fails_dir, success_dir=success_dir)
             write_text(draft_path, script_draft)
 
         print(f"台本初稿已生成，长度 {len(script_draft)} 字")
