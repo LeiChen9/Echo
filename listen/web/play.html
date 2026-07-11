@@ -19,55 +19,40 @@
     </header>
 
     <div class="play-scroll" id="play-scroll">
-      <p class="play-book" id="play-book"></p>
-      <h1 class="play-title" id="play-title">加载中…</h1>
-      <p class="play-meta" id="play-meta">
-        <span id="play-date"></span>
-        <span class="play-meta-dot" id="play-meta-dot">·</span>
-        <span id="play-duration"></span>
-      </p>
+      <div class="play-hero" id="play-hero">
+        <h1 class="play-title" id="play-title">加载中…</h1>
+        <p class="play-meta" id="play-meta">
+          <span id="play-date"></span>
+          <span class="play-meta-dot" id="play-meta-dot">·</span>
+          <span id="play-duration"></span>
+        </p>
 
-      <div class="play-cover-row">
-        <div class="play-cover" id="play-cover">
-          <span class="play-cover-letter" id="play-cover-letter">D</span>
+        <div class="play-cover-row">
+          <div class="play-cover" id="play-cover">
+            <span class="play-cover-letter" id="play-cover-letter">D</span>
+          </div>
+          <span class="play-book-label" id="play-book-label"></span>
         </div>
-        <span class="play-book-label" id="play-book-label"></span>
       </div>
 
       <section class="play-outline" id="play-outline">
         <div class="outline-block">
-          <svg class="outline-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-            <line x1="12" y1="17" x2="12.01" y2="17"/>
-          </svg>
           <div class="outline-content">
             <p class="outline-question" id="outline-question"></p>
           </div>
         </div>
 
         <div class="outline-block">
-          <svg class="outline-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="4" y1="9" x2="20" y2="9"/>
-            <line x1="4" y1="15" x2="20" y2="15"/>
-            <line x1="10" y1="3" x2="8" y2="21"/>
-            <line x1="16" y1="3" x2="14" y2="21"/>
-          </svg>
+          <span class="outline-hash" aria-hidden="true">#</span>
           <div class="outline-content">
             <div class="concept-pillars" id="concept-pillars"></div>
           </div>
         </div>
 
         <div class="outline-block outline-block-subtle">
-          <svg class="outline-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-            <polyline points="14 2 14 8 20 8"/>
-            <line x1="16" y1="13" x2="8" y2="13"/>
-            <line x1="16" y1="15" x2="8" y2="15"/>
-            <line x1="16" y1="17" x2="8" y2="17"/>
-          </svg>
           <div class="outline-content">
             <p class="outline-summary" id="outline-summary"></p>
+            <button class="read-more-trigger" id="read-more-trigger" type="button"></button>
           </div>
         </div>
       </section>

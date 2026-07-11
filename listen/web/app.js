@@ -33,7 +33,6 @@ const els = {
   btnNext: document.getElementById("btn-next"),
   audio: document.getElementById("audio"),
   playTitle: document.getElementById("play-title"),
-  playBook: document.getElementById("play-book"),
   playDate: document.getElementById("play-date"),
   playDuration: document.getElementById("play-duration"),
   playMetaDot: document.getElementById("play-meta-dot"),
@@ -161,6 +160,17 @@ function formatTime(seconds) {
   const secs = total % 60;
   return `${mins}:${String(secs).padStart(2, "0")}`;
 }
+
+function formatDurationLong(seconds) {
+  if (!Number.isFinite(seconds) || seconds < 0) return "";
+  const total = Math.floor(seconds);
+  const hours = Math.floor(total / 3600);
+  const mins = Math.floor((total % 3600) / 60);
+  if (hours > 0) return `${hours} h ${mins} min`;
+  return `${mins} min`;
+}
+
+
 
 function progressKey(seriesId, episodeId) {
   return `drift:progress:${seriesId}:${episodeId}`;
@@ -528,7 +538,6 @@ function loadEpisode(episode, autoplay) {
   if (els.playerBook) els.playerBook.textContent = bookTitle;
   if (els.seriesTitle) els.seriesTitle.textContent = bookTitle;
 
-  if (els.playBook) els.playBook.textContent = bookTitle;
   if (els.playTitle) els.playTitle.textContent = title;
   if (els.playBookLabel) els.playBookLabel.textContent = bookTitle;
 
@@ -564,7 +573,7 @@ function loadEpisode(episode, autoplay) {
   if (els.playDuration) {
     const sec = episode.duration_sec;
     if (sec != null && Number.isFinite(sec)) {
-      els.playDuration.textContent = formatTime(sec);
+      els.playDuration.textContent = formatDurationLong(sec);
       els.playDuration.style.display = "";
     } else {
       els.playDuration.style.display = "none";
@@ -594,8 +603,30 @@ function loadEpisode(episode, autoplay) {
     }
   }
 
+  const trigger = document.getElementById("read-more-trigger");
   if (els.outlineSummary) {
-    els.outlineSummary.textContent = episode.reasoning_summary || "";
+    const text = episode.reasoning_summary || "";
+    const MAX_LEN = 120;
+    if (text.length > MAX_LEN) {
+      els.outlineSummary.textContent = text.slice(0, MAX_LEN) + "…";
+      if (trigger) {
+        trigger.style.display = "inline-block";
+        trigger.textContent = "read more";
+        trigger.onclick = () => {
+          const expanded = els.outlineSummary.classList.toggle("expanded");
+          if (expanded) {
+            els.outlineSummary.textContent = text;
+            trigger.textContent = "collapse";
+          } else {
+            els.outlineSummary.textContent = text.slice(0, MAX_LEN) + "…";
+            trigger.textContent = "read more";
+          }
+        };
+      }
+    } else {
+      els.outlineSummary.textContent = text;
+      if (trigger) trigger.style.display = "none";
+    }
   }
 
   const mediaUrl = resolveMediaUrl(episode);

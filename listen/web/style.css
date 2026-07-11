@@ -300,12 +300,8 @@ main {
   margin: 0 auto;
 }
 
-.play-book {
-  margin: 0 0 4px;
-  font-size: 13px;
-  color: var(--muted);
-  font-weight: 400;
-  letter-spacing: 0.02em;
+.play-hero {
+  margin-bottom: 28px;
 }
 
 .play-title {
@@ -330,14 +326,14 @@ main {
 .play-cover-row {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin-bottom: 28px;
+  gap: 12px;
+  margin-bottom: 0;
 }
 
 .play-cover {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   background-size: cover;
   background-position: center;
@@ -349,11 +345,11 @@ main {
 }
 
 .play-cover-letter {
-  font-size: 22px;
+  font-size: 16px;
 }
 
 .play-book-label {
-  font-size: 15px;
+  font-size: 13px;
   color: var(--text);
   font-weight: 400;
   line-height: 1.3;
@@ -362,7 +358,7 @@ main {
 .play-outline {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 28px;
 }
 
 .outline-block {
@@ -371,50 +367,76 @@ main {
   align-items: flex-start;
 }
 
-.outline-icon {
-  flex-shrink: 0;
-  color: var(--accent);
-  margin-top: 3px;
-}
-
 .outline-content {
   flex: 1;
   min-width: 0;
 }
 
+.outline-hash {
+  flex-shrink: 0;
+  color: var(--accent);
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 2px;
+  width: 18px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
 .outline-question {
   margin: 0;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.55;
   color: var(--text);
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .concept-pillars {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
 .concept-pillar {
   display: inline-block;
-  padding: 5px 14px;
+  padding: 4px 12px;
   border-radius: 999px;
   background: rgba(232, 223, 210, 0.35);
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1.4;
   color: var(--text);
   letter-spacing: 0.01em;
 }
 
-.outline-block-subtle .outline-icon {
+.outline-block-subtle .outline-content {
   color: var(--muted);
 }
 
 .outline-summary {
   margin: 0;
-  font-size: 13px;
-  line-height: 1.55;
+  font-size: 12px;
+  line-height: 1.6;
   color: var(--muted);
+}
+
+.read-more-trigger {
+  display: none;
+  margin-top: 4px;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 12px;
+  color: var(--accent);
+  cursor: pointer;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.read-more-trigger:hover {
+  color: var(--accent-2);
 }
 
 .player-bar {
@@ -532,7 +554,7 @@ main {
     font-size: 20px;
   }
 
-  .play-cover-row {
+  .play-hero {
     margin-bottom: 24px;
   }
 
