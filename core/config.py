@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parent.parent
 @dataclass
 class ProjectConfig:
     name: str
+    lang: str | None = None
 
     @property
     def book_dir(self) -> Path:
@@ -30,7 +31,9 @@ class ProjectConfig:
         return ROOT / "asset" / "voice"
 
     def book_json_path(self, name: str | None = None) -> Path:
-        return self.book_dir / f"{name or self.name}.json"
+        base = name or self.name
+        suffix = f".{self.lang}" if self.lang else ""
+        return self.book_dir / f"{base}{suffix}.json"
 
     def book_epub_path(self, name: str | None = None) -> Path:
         return self.book_dir / f"{name or self.name}.epub"
