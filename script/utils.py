@@ -147,3 +147,19 @@ def split_chunks(text: str, max_chars: int = 4500) -> list[str]:
 
 def format_list(items: list) -> str:
     return "、".join(items) if items else "无"
+
+
+CN = "".join(chr(i) for i in range(0x4e00, 0x9fff + 1))
+CN_PUNCT = "，。？！；：、）】」』》】】"  # right-side punct
+CN_PUNCT_L = "（【「『《"  # left-side punct
+CN_PUNCT_ALL = CN_PUNCT + CN_PUNCT_L
+
+
+def format_script(text: str) -> str:
+    # remove spaces between CJK chars and Chinese punctuation
+    text = re.sub(rf"([{CN}])\s+([{CN_PUNCT_ALL}])", r"\1\2", text)
+    text = re.sub(rf"([{CN_PUNCT_L}])\s+([{CN}])", r"\1\2", text)
+    text = re.sub(rf"([{CN_PUNCT}])\s+([{CN_PUNCT_ALL}])", r"\1\2", text)
+
+    paragraphs = [p.strip() for p in re.split(r"\n+", text) if p.strip()]
+    return "\n\n".join(paragraphs)

@@ -9,7 +9,7 @@ from script.rewriter import script_rewrite
 from script.reviewer import review_script
 from script.apply_review import apply_review, write_review_report
 from script.auditor import audit_script
-from script.utils import extract_sections, get_episode_text
+from script.utils import extract_sections, get_episode_text, format_script
 import pdb
 
 PROJECT = "division_of_labor"  # ← 改这里切换项目
@@ -72,6 +72,7 @@ def main():
         # --- Step 3: Auditor ---
         print(f"正在审校台本：{episode['title']}...")
         script_final = audit_script(script_draft)
+        script_final = format_script(script_final)
         write_text(final_path, script_final)
         pdb.set_trace()
 
