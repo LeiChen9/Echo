@@ -1,8 +1,52 @@
+import json
+import re
+import time
+from pathlib import Path
+
 from core.llm import llm_call, get_llm_client
 from script.utils import format_list, get_episode_text
 
 
-def script_rewrite(episode: dict, sections: dict[str, dict], prompt_template: str | None = None, max_retries: int = 3, client=None) -> str:
+def _save_failed_attempt(
+    fails_dir: Path,
+    episode: dict,
+    attempt: int,
+    prompt: str,
+    output: str,
+    original_len: int,
+    output_len: int,
+    min_required_len: int,
+) -> None:
+    fails_dir.mkdir(parents=True, exist_ok=True)
+
+    max_n = 0
+    for f in fails_dir.iterdir():
+        if m := re.match(r"attempt(\d+)_meta\.json", f.name):
+            max_n = max(max_n, int(m.group(1)))
+    n = max_n + 1
+
+    prefix = f"attempt{n}"
+    (fails_dir / f"{prefix}_input.txt").write_text(prompt, encoding="utf-8")
+    (fails_dir / f"{prefix}_output.txt").write_text(output, encoding="utf-8")
+
+    meta = {
+        "attempt_in_session": attempt,
+        "global_attempt": n,
+        "episode_id": episode.get("episode_id", ""),
+        "episode_title": episode.get("title", ""),
+        "original_len": original_len,
+        "output_len": output_len,
+        "min_required_len": min_required_len,
+        "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S"),
+    }
+    (fails_dir / f"{prefix}_meta.json").write_text(
+        json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+
+    print(f"已保存失败试次到 {fails_dir / prefix}_*")
+
+
+def script_rewrite(episode: dict, sections: dict[str, dict], prompt_template: str | None = None, max_retries: int = 3, client=None, fails_dir: Path | None = None) -> str:
     if client is None:
         client = get_llm_client()
 
@@ -19,6 +63,8 @@ def script_rewrite(episode: dict, sections: dict[str, dict], prompt_template: st
         if script_len >= min_required_len:
             return script
         print(f"警告：输出 {script_len} 字 < 最小要求 {min_required_len} 字，准备重试...")
+        if fails_dir is not None:
+            _save_failed_attempt(fails_dir, episode, attempt, prompt, script, original_len, script_len, min_required_len)
 
     raise RuntimeError(f"脚本生成失败：经过 {max_retries} 次重试，输出长度仍未达到最小要求")
 
@@ -80,7 +126,7 @@ def _build_prompt(episode: dict, full_text: str, prompt_template: str | None = N
 '''
 
 
-def script_rewrite_hardcore(episode: dict, book_data: dict, client=None) -> str:
+def script_rewrite_hardcore(episode: dict, book_data: dict, client=None, fails_dir: Path | None = None) -> str:
     if client is None:
         client = get_llm_client()
 
@@ -101,6 +147,8 @@ def script_rewrite_hardcore(episode: dict, book_data: dict, client=None) -> str:
         if script_len >= min_required_len:
             return script
         print(f"警告：输出 {script_len} 字 < 最小要求 {min_required_len} 字，准备重试...")
+        if fails_dir is not None:
+            _save_failed_attempt(fails_dir, episode, attempt, prompt, script, original_len, script_len, min_required_len)
 
     raise RuntimeError(f"脚本生成失败")
 

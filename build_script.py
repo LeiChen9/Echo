@@ -1,6 +1,7 @@
 """outline.json + book.json → 台本（draft + audit）"""
 
 import os
+from pathlib import Path
 from core.config import get_project_config
 from core.utils import load_json, read_text, write_text
 from script.rewriter import script_rewrite
@@ -32,7 +33,8 @@ def main():
         if draft_path.exists():
             script_draft = read_text(draft_path)
         else:
-            script_draft = script_rewrite(episode, sections)
+            fails_dir = cfg.script_dir / "_fails" / ep_id
+            script_draft = script_rewrite(episode, sections, fails_dir=fails_dir)
             write_text(draft_path, script_draft)
 
         print(f"台本初稿已生成，长度 {len(script_draft)} 字")
