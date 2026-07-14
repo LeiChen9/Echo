@@ -16,7 +16,8 @@ class ProjectConfig:
 
     @property
     def outline_path(self) -> Path:
-        return ROOT / "asset" / "outline" / f"{self.name}_{self.lang}.json"
+        suffix = f"_{self.lang}" if self.lang else ""
+        return ROOT / "asset" / "outline" / f"{self.name}{suffix}.json"
 
     @property
     def script_dir(self) -> Path:

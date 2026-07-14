@@ -11,7 +11,7 @@ from ingest.epub_builder import build_epub
 def main():
     parser = argparse.ArgumentParser(description="从 book.json 重建 EPUB")
     parser.add_argument("project", nargs="?", help="项目名")
-    parser.add_argument("--lang", default="zh", help="语言后缀 (默认 zh)")
+    parser.add_argument("--lang", default="", help="语言后缀 (默认 空，使用原始 book.json)")
     parser.add_argument("--title", help="EPUB 标题（默认使用第一个章节名）")
     parser.add_argument("--source", help="源 JSON 路径（默认 asset/book/{project}/{project}.{lang}.json）")
     parser.add_argument("-o", "--output", help="输出路径（默认 asset/book/{project}/{project}.{lang}.epub）")
@@ -24,9 +24,11 @@ def main():
         project = DEFAULT_PROJECT
 
     cfg = get_project_config(project)
+    if args.lang:
+        cfg.lang = args.lang
 
-    source = args.source or cfg.book_dir / f"{cfg.name}.{args.lang}.json"
-    output = args.output or cfg.book_dir / f"{cfg.name}.{args.lang}.epub"
+    source = args.source or cfg.book_json_path()
+    output = args.output or cfg.book_epub_path()
 
     source_path = Path(source)
     if not source_path.exists():

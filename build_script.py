@@ -12,12 +12,11 @@ from script.auditor import audit_script
 from script.utils import extract_sections, get_episode_text, format_script
 import pdb
 
-PROJECT = "division_of_labor"  # ← 改这里切换项目
+PROJECT = "how_to_use_AI_for_analysis"  # ← 改这里切换项目
 
 
 def main():
     cfg = get_project_config(PROJECT)
-    cfg.lang = "zh"  # 手动指定：使用翻译版 book_zh
     outline = load_json(cfg.outline_path)
     book_data = load_json(cfg.book_json_path())
     sections = extract_sections(book_data)

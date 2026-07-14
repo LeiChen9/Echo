@@ -70,16 +70,15 @@ def _collect_sections(
 ) -> None:
     for key, node in nodes.items():
         norm = normalize_chapter_title(key)
-        if norm in sections:
-            raise ValueError(f"重复章节标题：{key}")
-        paragraphs = extract_text(node)
-        body = remove_citations("".join(remove_references(paragraphs)))
-        sections[norm] = {
-            "title": key,
-            "order": order[0],
-            "body": body,
-        }
-        order[0] += 1
+        if norm not in sections:
+            paragraphs = extract_text(node)
+            body = remove_citations("".join(remove_references(paragraphs)))
+            sections[norm] = {
+                "title": key,
+                "order": order[0],
+                "body": body,
+            }
+            order[0] += 1
         if node.get("children"):
             _collect_sections(node["children"], sections, order)
 
