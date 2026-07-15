@@ -1,7 +1,7 @@
 {
   "series_id": "national_org",
   "book_title": "中国国家治理的制度逻辑：一个组织学研究",
-  "updated_at": "2026-07-04",
+  "updated_at": "2026-07-15",
   "episodes": [
     {
       "episode_id": "EP01",
@@ -56,9 +56,9 @@
       "episode_id": "EP04",
       "title": "治理的“突击挡”：为什么运动式治理挥之不去？",
       "central_question": "运动式治理是如何作为一种修复机制，解决常规官僚体制无法克服的组织失败的？",
-      "duration_sec": null,
+      "duration_sec": 3858,
       "audio_path": "china_governance/EP04.mp3",
-      "published": false,
+      "published": true,
       "key_concepts": [
         "常规权力与专断权力",
         "政治问题行政化",
@@ -72,9 +72,9 @@
       "episode_id": "EP05",
       "title": "猫鼠游戏的规则：谈判、共谋与基层政治的真相",
       "central_question": "为什么基层政府间的“共谋”不仅无法杜绝，反而是维持体制象征性权威的必要条件？",
-      "duration_sec": null,
+      "duration_sec": 11668,
       "audio_path": "china_governance/EP05.mp3",
-      "published": false,
+      "published": true,
       "key_concepts": [
         "信号博弈",
         "准退出策略",
@@ -88,9 +88,9 @@
       "episode_id": "EP06",
       "title": "拼凑出的秩序：基层政府的“救火”式生存策略",
       "central_question": "在多重冲突的任务和匮乏的资源面前，基层政府是如何通过“拼凑”和“向下攫取”来维持平衡的？",
-      "duration_sec": null,
+      "duration_sec": 7490,
       "audio_path": "china_governance/EP06.mp3",
-      "published": false,
+      "published": true,
       "key_concepts": [
         "拼凑应对",
         "多重逻辑冲突",
@@ -104,9 +104,9 @@
       "episode_id": "EP07",
       "title": "乡村遭遇官僚制：修路、选举与被重塑的社会",
       "central_question": "当国家政策强力介入乡村时，地方社会逻辑是如何扭曲或重塑这些政策，并最终付出代价的？",
-      "duration_sec": null,
+      "duration_sec": 7265,
       "audio_path": "china_governance/EP07.mp3",
-      "published": false,
+      "published": true,
       "key_concepts": [
         "社会逻辑",
         "非正式责任",
@@ -120,9 +120,9 @@
       "episode_id": "EP08",
       "title": "秩序的挑战与未来：无组织的集体行动与治理转型",
       "central_question": "在缺乏独立组织的情况下，散乱的社会不满是如何通过制度逻辑被系统地转化为集体行动的？中国治理的效率与稳定之困何在？",
-      "duration_sec": null,
+      "duration_sec": 7041,
       "audio_path": "china_governance/EP08.mp3",
-      "published": false,
+      "published": true,
       "key_concepts": [
         "大数现象",
         "非直接利益相关者",
