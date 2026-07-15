@@ -73,7 +73,6 @@ def main():
         script_final = audit_script(script_draft)
         script_final = format_script(script_final)
         write_text(final_path, script_final)
-        pdb.set_trace()
 
     print("脚本生成完成")
 
