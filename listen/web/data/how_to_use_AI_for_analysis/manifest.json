@@ -8,8 +8,8 @@
       "title": "当分析师穿上外骨骼：AI 时代数据分析的范式重构",
       "central_question": "在 AI 能力爆发的今天，为什么大多数数据分析师反而觉得 AI \"不好用\"或\"不稳定\"？",
       "duration_sec": null,
-      "audio_path": "how_to_use_AI_for_analysis/ep01.mp3",
-      "published": false,
+      "audio_path": "how_to_use_AI_for_analysis/EP01.mp3",
+      "published": true,
       "key_concepts": [
         "外骨骼（Exoskeleton）",
         "Agent 化分析",
@@ -22,8 +22,8 @@
       "title": "三层金字塔：如何从零搭建一个不朽烂的 AI 工作站",
       "central_question": "如何设计一套物理结构，让 AI 能够跨越对话、跨越项目记住你的业务规则？",
       "duration_sec": null,
-      "audio_path": "how_to_use_AI_for_analysis/ep02.mp3",
-      "published": false,
+      "audio_path": "how_to_use_AI_for_analysis/EP02.mp3",
+      "published": true,
       "key_concepts": [
         "Memory Bank（六件套）",
         "CLAUDE.md",
@@ -37,8 +37,8 @@
       "title": "执行归 AI，判断归人：基础基建篇的铁律实战",
       "central_question": "在清洗数据、定指标、打标签这些基础任务中，哪些节点是 AI 绝对不能跨越的\"禁区\"？",
       "duration_sec": null,
-      "audio_path": "how_to_use_AI_for_analysis/ep03.mp3",
-      "published": false,
+      "audio_path": "how_to_use_AI_for_analysis/EP03.mp3",
+      "published": true,
       "key_concepts": [
         "RED-GREEN-REFACTOR",
         "Iron Law（铁律）",
