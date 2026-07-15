@@ -1,7 +1,7 @@
 {
   "series_id": "neg_explain",
   "book_title": "反对阐释",
-  "updated_at": "2026-07-03",
+  "updated_at": "2026-07-15",
   "episodes": [
     {
       "episode_id": "EP01",
@@ -51,9 +51,9 @@
       "episode_id": "EP04",
       "title": "结构与历史的交锋：科学冷静如何应对热带的忧郁？",
       "central_question": "在追求科学客观性的结构分析与坚持历史道德评价的现实主义批评之间，艺术的真理性该如何安放？",
-      "duration_sec": null,
+      "duration_sec": 3136,
       "audio_path": "neg_explain/EP04.mp3",
-      "published": false,
+      "published": true,
       "key_concepts": [
         "结构人类学 (Structural Anthropology)",
         "冷社会与热社会",
@@ -65,9 +65,9 @@
       "episode_id": "EP05",
       "title": "叙事的叛逆：当戏剧和小说拒绝成为“故事”",
       "central_question": "为什么现代前卫艺术必须通过摧毁情节和心理描写来寻找新的现实感？",
-      "duration_sec": null,
+      "duration_sec": 3786,
       "audio_path": "neg_explain/EP05.mp3",
-      "published": false,
+      "published": true,
       "key_concepts": [
         "潜对话 (Tropisms)",
         "反戏剧 (Anti-theater)",
@@ -79,9 +79,9 @@
       "episode_id": "EP06",
       "title": "公义的剧场：当大屠杀与悲剧在现代舞台相遇",
       "central_question": "在悲剧已经消亡的时代，剧场是否还能承担起作为公共道德审判论坛的功能？",
-      "duration_sec": null,
+      "duration_sec": 4198,
       "audio_path": "neg_explain/EP06.mp3",
-      "published": false,
+      "published": true,
       "key_concepts": [
         "纪实剧 (Documentary Drama)",
         "元戏剧 (Metatheatre)",
@@ -93,9 +93,9 @@
       "episode_id": "EP07",
       "title": "残酷的洗礼：罗贝尔·布勒松与感官的新秩序",
       "central_question": "如何通过极端的节制与“残酷”的视觉冲击，在胶片上呈现人类灵魂的重负与神恩？",
-      "duration_sec": null,
+      "duration_sec": 4408,
       "audio_path": "neg_explain/EP07.mp3",
-      "published": false,
+      "published": true,
       "key_concepts": [
         "残酷戏剧 (Theater of Cruelty)",
         "反思艺术 (Reflective Art)",
@@ -108,9 +108,9 @@
       "episode_id": "EP08",
       "title": "毁灭的美学：从戈达尔的哲学到科幻片的集体梦魇",
       "central_question": "为什么现代人既迷恋戈达尔式的离碎叙事，又无法抗拒科幻电影中城市毁灭的壮观景观？",
-      "duration_sec": null,
+      "duration_sec": 3512,
       "audio_path": "neg_explain/EP08.mp3",
-      "published": false,
+      "published": true,
       "key_concepts": [
         "影像语言 (Ciné-phrase)",
         "毁灭美学 (Aesthetics of destruction)",
@@ -122,9 +122,9 @@
       "episode_id": "EP09",
       "title": "坎普的胜利：感官快乐的政治解放与地下艺术的崛起",
       "central_question": "为什么“坎普”趣味这种对非自然、夸张之物的热爱，成为了现代人逃避严肃道德重负的出口？",
-      "duration_sec": null,
+      "duration_sec": 5769,
       "audio_path": "neg_explain/EP09.mp3",
-      "published": false,
+      "published": true,
       "key_concepts": [
         "坎普 (Camp)",
         "事件剧 (Happenings)",
@@ -137,9 +137,9 @@
       "episode_id": "EP10",
       "title": "新感受力的黎明：在六十年代的废墟上重建审美",
       "central_question": "为什么文学不再是现代文化的典范，而一种跨越科学与艺术的新感受力正在重塑我们的意识？",
-      "duration_sec": null,
+      "duration_sec": 2413,
       "audio_path": "neg_explain/EP10.mp3",
-      "published": false,
+      "published": true,
       "key_concepts": [
         "两种文化 (Two Cultures)",
         "新感受力 (The New Sensibility)",

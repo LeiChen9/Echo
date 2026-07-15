@@ -2,7 +2,7 @@
 
 ## 背景
 
-- 问题：CosyVoice 合成音频时，气口（呼吸/停顿）不自然，短句碎片化导致韵律丢失；缩写（SQL, Claude 等）发音随机
+- 问题：CosyVoice 合成音频时，气口（呼吸/停顿）不自然，短句碎片化导致韵律丢失
 - 本次目标：通过调整 split_paragraph 参数 + 短句合并逻辑改善气口
 - 发音问题待下次讨论
 
@@ -59,13 +59,4 @@ utts = merged
 1. 每块更大 → 模型有更多上下文 → 句间韵律更自然
 2. 短句不独立 → 减少碎片感，气口不突兀
 
-## 部署流程
 
-```bash
-cd cosyvoice
-# 改完 frontend_utils.py 后
-git add cosyvoice/utils/frontend_utils.py
-git commit -m "增大分句窗口 token_max_n:80→200; 合并短句"
-git push
-# 注意：确保 remote 指向自己有写入权限的 fork
-```
