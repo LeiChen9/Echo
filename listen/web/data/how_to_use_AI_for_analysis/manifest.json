@@ -1,7 +1,7 @@
 {
   "series_id": "how_to_use_AI_for_analysis",
   "book_title": "如何用 AI 进行数据分析",
-  "updated_at": "2026-07-15",
+  "updated_at": "2026-07-16",
   "episodes": [
     {
       "episode_id": "EP01",
@@ -51,9 +51,9 @@
       "episode_id": "EP04",
       "title": "从‘正确的废话’到‘军师’：日常协作中的深度防御",
       "central_question": "如何通过流程设计，防止 AI 在高层级分析中提供似是而非、甚至完全误导的业务建议？",
-      "duration_sec": null,
+      "duration_sec": 1524,
       "audio_path": "how_to_use_AI_for_analysis/EP04.mp3",
-      "published": false,
+      "published": true,
       "key_concepts": [
         "辛普森悖论（在多维拆解中的应用）",
         "TL;DR 优先原则",
@@ -66,9 +66,9 @@
       "episode_id": "EP05",
       "title": "对抗熵增：Skill 的工程化迭代与每日助理协议",
       "central_question": "Skill 装得越多效果越好吗？如何建立一套“自维持、不朽烂”的工作流？",
-      "duration_sec": null,
+      "duration_sec": 884,
       "audio_path": "how_to_use_AI_for_analysis/EP05.mp3",
-      "published": false,
+      "published": true,
       "key_concepts": [
         "先问再做型（Inversion）",
         "注意力的物理学（Attention Decay）",
@@ -81,9 +81,9 @@
       "episode_id": "EP06",
       "title": "规模化协作：Subagent 分工与部落知识的传承",
       "central_question": "如何建立一个“AI 队伍”来承载团队的工艺图纸，而不是让知识随人离职而流失？",
-      "duration_sec": null,
+      "duration_sec": 894,
       "audio_path": "how_to_use_AI_for_analysis/EP06.mp3",
-      "published": false,
+      "published": true,
       "key_concepts": [
         "Subagent Isolation",
         "Reasoning-blind classifier",
@@ -96,9 +96,9 @@
       "episode_id": "EP07",
       "title": "交付的最后 30 秒：安全护栏与分析师的职场天花板",
       "central_question": "在 AI 时代，分析师真正稀缺、AI 永远干不了的那 3 种能力到底是什么？",
-      "duration_sec": null,
+      "duration_sec": 1885,
       "audio_path": "how_to_use_AI_for_analysis/EP07.mp3",
-      "published": false,
+      "published": true,
       "key_concepts": [
         "业务抽象（Business Abstraction）",
         "流程编排（Workflow Orchestration）",
@@ -111,9 +111,9 @@
       "episode_id": "EP08",
       "title": "硬核底层：上下文物理学与 14 大 Skill 设计模式",
       "central_question": "为什么“上下文窗口 = RAM”是这个时代最重要的技术隐喻？",
-      "duration_sec": null,
+      "duration_sec": 757,
       "audio_path": "how_to_use_AI_for_analysis/EP08.mp3",
-      "published": false,
+      "published": true,
       "key_concepts": [
         "LLM 的 RAM 隐喻",
         "Middle is Lost",
@@ -126,9 +126,9 @@
       "episode_id": "EP09",
       "title": "终极教材：非结构化挖掘、因果建模与 Agent 五根柱子",
       "central_question": "当 AI 介入复杂的统计建模和非结构化挖掘时，我们如何守住科学的尊严？",
-      "duration_sec": null,
+      "duration_sec": 912,
       "audio_path": "how_to_use_AI_for_analysis/EP09.mp3",
-      "published": false,
+      "published": true,
       "key_concepts": [
         "信息饱和原理（150 条原则）",
         "Cohen's kappa（一致性检查）",
